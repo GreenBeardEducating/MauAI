@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MauAI.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="MauAI"
+    BackgroundColor="#F5F7FB">
+
+    <Grid Padding="24" RowDefinitions="Auto,*,Auto" RowSpacing="16">
+
+        <!-- Хеадер -->
+        <VerticalStackLayout Grid.Row="0" Spacing="4">
+            <Label
+                FontAttributes="Bold"
+                FontSize="30"
+                Text="MauAI"
+                TextColor="#20242A" />
+
+            <Label
+                FontSize="14"
+                Text="Ask anything via AgentRouter"
+                TextColor="#68707A" />
+        </VerticalStackLayout>
+
+        <!-- Збір повідомлень -->
+        <CollectionView
+            x:Name="MessagesView"
+            Grid.Row="1"
+            ItemsSource="{Binding Messages}"
+            SelectionMode="None">
+
+            <CollectionView.EmptyView>
+                <VerticalStackLayout
+                    HorizontalOptions="Center"
+                    Spacing="8"
+                    VerticalOptions="Center">
+
+                    <Label
+                        FontSize="22"
+                        HorizontalTextAlignment="Center"
+                        Text="Start a conversation"
+                        TextColor="#20242A" />
+
+                    <Label
+                        FontSize="14"
+                        HorizontalTextAlignment="Center"
+                        Text="Type a message below to begin."
+                        TextColor="#68707A" />
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border
+                        Margin="0,4"
+                        Padding="14"
+                        BackgroundColor="{Binding BackgroundColor}"
+                        StrokeShape="RoundRectangle 14"
+                        StrokeThickness="0">
+
+                        <VerticalStackLayout Spacing="4">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="12"
+                                Text="{Binding Role}"
+                                TextColor="{Binding RoleColor}" />
+
+                            <Label
+                                FontSize="16"
+                                LineBreakMode="WordWrap"
+                                Text="{Binding Content}"
+                                TextColor="#20242A" />
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Секція для інпутів -->
+        <Grid Grid.Row="2" ColumnDefinitions="*,Auto,Auto" ColumnSpacing="10">
+            <Border
+                Grid.Column="0"
+                Padding="12,4"
+                BackgroundColor="White"
+                Stroke="#D9DEE7"
+                StrokeShape="RoundRectangle 12">
+
+                <Editor
+                    x:Name="PromptEditor"
+                    AutoSize="TextChanges"
+                    MaximumHeightRequest="120"
+                    Placeholder="Type your message..."
+                    PlaceholderColor="#89919C"
+                    TextColor="#20242A" />
+            </Border>
+
+            <Button
+                x:Name="MicrophoneButton"
+                Grid.Column="1"
+                Padding="16,0"
+                BackgroundColor="#E9E3FF"
+                Clicked="OnMicrophoneClicked"
+                CornerRadius="12"
+                Text="🎤"
+                TextColor="#512BD4"
+                VerticalOptions="End" />
+
+            <Button
+                x:Name="SendButton"
+                Grid.Column="2"
+                Padding="20,0"
+                BackgroundColor="#512BD4"
+                Clicked="OnSendClicked"
+                CornerRadius="12"
+                Text="Send"
+                TextColor="White"
+                VerticalOptions="End" />
+        </Grid>
+    </Grid>
+</ContentPage>
